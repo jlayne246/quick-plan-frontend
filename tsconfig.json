@@ -13,7 +13,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".",               // project root
+    "baseUrl": "src",               // project root
     "plugins": [
       {
         "name": "next"
