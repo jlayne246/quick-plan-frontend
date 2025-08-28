@@ -2,7 +2,8 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-        "@/*": ["*"]
-        }
+            "@/*": ["*"]
+        },
+        "moduleResolution": "node"  // <- ADD THIS LINE
     }
 }
