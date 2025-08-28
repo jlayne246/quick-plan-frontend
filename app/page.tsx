@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getHello } from "@/lib/apiClient";
+import { getHello } from "../lib/apiClient";
 
 export default function HomePage() {
     const [message, setMessage] = useState("Loading...");
