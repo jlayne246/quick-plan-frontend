@@ -131,6 +131,7 @@ export default function SemesterCourses() {
                             <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
                             <p className="text-gray-600">{course.course.course_code}</p>
                             <p className="text-gray-600">Credits: {course.course.credits}</p>
+                            <p className="text-gray-600">Lecturer: {course.lecturer}</p>
                         </li>
                     ))
                 ) : (
@@ -147,6 +148,7 @@ export default function SemesterCourses() {
                             <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
                             <p className="text-gray-600">{course.course.course_code}</p>
                             <p className="text-gray-600">Credits: {course.course.credits}</p>
+                            <p className="text-gray-600">Lecturer: {course.lecturer}</p>
                         </li>
                     ))
                 ) : (
@@ -163,12 +165,15 @@ export default function SemesterCourses() {
                             <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
                             <p className="text-gray-600">{course.course.course_code}</p>
                             <p className="text-gray-600">Credits: {course.course.credits}</p>
+                            <p className="text-gray-600">Lecturer: {course.lecturer}</p>
                         </li>
                     ))
                 ) : (
                     <p className="text-center text-gray-500 italic">No courses within your degree.</p>
                 )}
             </ul>
+
+            <h2 className="text-lg font-semibold text-gray-700 text-center mt-4"> Outside Degree</h2>
 
             {/* Within Faculty */}
             <h3 className="text-md font-medium text-gray-600 text-center m-2">Within Faculty</h3>
@@ -179,6 +184,7 @@ export default function SemesterCourses() {
                             <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
                             <p className="text-gray-600">{course.course.course_code}</p>
                             <p className="text-gray-600">Credits: {course.course.credits}</p>
+                            <p className="text-gray-600">Lecturer: {course.lecturer}</p>
                         </li>
                     ))
                 ) : (
@@ -195,6 +201,7 @@ export default function SemesterCourses() {
                             <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
                             <p className="text-gray-600">{course.course.course_code}</p>
                             <p className="text-gray-600">Credits: {course.course.credits}</p>
+                            <p className="text-gray-600">Lecturer: {course.lecturer}</p>
                         </li>
                     ))
                 ) : (
@@ -202,6 +209,19 @@ export default function SemesterCourses() {
                 )}
             </ul>
 
+            <div className='flex justify-center w-full'>
+                <button
+                    className="m-8 rounded bg-yellow-600 px-4 py-2 text-white hover:bg-blue-600"
+                    onClick={() => window.history.back()}
+                >
+                    Go Back
+                </button>
+                <button
+                    className="m-8 rounded bg-yellow-600 px-4 py-2 text-white hover:bg-blue-600"
+                >
+                    Next
+                </button>
+                </div>
         </div>
     );
 }
