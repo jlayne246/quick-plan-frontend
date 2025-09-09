@@ -8,6 +8,8 @@ import { getCoursesBySemester, getDegreeById, getAllFaculties } from "../lib/api
 import { CourseOffering, Degree, Faculty } from "../lib/types";
 import { get } from 'http';
 
+export const dynamic = 'force-dynamic';
+
 export default function SemesterCourses() {
 
     const searchParams = useSearchParams();
