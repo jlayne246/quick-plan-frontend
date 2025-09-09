@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect } from "react"
+import { Suspense, useState, useEffect } from "react"
 
 import { getCoursesBySemester, getDegreeById, getAllFaculties } from "../lib/apiClient";
 
@@ -126,53 +126,58 @@ export default function SemesterCourses() {
             <h1 className="text-2xl font-bold text-gray-800 text-center">Courses offered in Semester {semesterId} {year}</h1>
             <h2 className="text-lg font-semibold text-gray-700 text-center"> Within Degree</h2>
             <h3 className='text-md font-medium text-gray-600 text-center m-2'>Mandatory</h3>
-            <ul className="mt-4 space-y-2">
-                {mandatoryCourses && mandatoryCourses.length > 0 ? (
-                    mandatoryCourses.map((course) => (
-                        <li key={course.id} className="p-4 bg-white rounded-lg shadow">
-                            <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
-                            <p className="text-gray-600">{course.course.course_code}</p>
-                            <p className="text-gray-600">Credits: {course.course.credits}</p>
-                            <p className="text-gray-600">Lecturer: {course.lecturer}</p>
-                        </li>
-                    ))
-                ) : (
-                    <p className="text-center text-gray-500 italic">No mandatory courses available.</p>
-                )}
-
-            </ul>
+            <Suspense fallback={<div>Loading mandatory courses...</div>}>
+                <ul className="mt-4 space-y-2">
+                    {mandatoryCourses && mandatoryCourses.length > 0 ? (
+                        mandatoryCourses.map((course) => (
+                            <li key={course.id} className="p-4 bg-white rounded-lg shadow">
+                                <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
+                                <p className="text-gray-600">{course.course.course_code}</p>
+                                <p className="text-gray-600">Credits: {course.course.credits}</p>
+                                <p className="text-gray-600">Lecturer: {course.lecturer}</p>
+                            </li>
+                        ))
+                    ) : (
+                        <p className="text-center text-gray-500 italic">No mandatory courses available.</p>
+                    )}  
+                </ul>
+            </Suspense>
 
             <h4 className="text-md font-italic text-gray-700 text-center m-2">Foundation</h4>
             <ul className="mt-4 space-y-2">
-                {foundationCourses && foundationCourses.length > 0 ? (
-                    foundationCourses.map((course) => (
-                        <li key={course.id} className="p-4 bg-white rounded-lg shadow">
-                            <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
-                            <p className="text-gray-600">{course.course.course_code}</p>
-                            <p className="text-gray-600">Credits: {course.course.credits}</p>
-                            <p className="text-gray-600">Lecturer: {course.lecturer}</p>
-                        </li>
-                    ))
-                ) : (
-                    <p className="text-center text-gray-500 italic">No foundation courses available.</p>
-                )}
+                <Suspense fallback={<div>Loading foundation courses...</div>}>
+                    {foundationCourses && foundationCourses.length > 0 ? (
+                        foundationCourses.map((course) => (
+                            <li key={course.id} className="p-4 bg-white rounded-lg shadow">
+                                <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
+                                <p className="text-gray-600">{course.course.course_code}</p>
+                                <p className="text-gray-600">Credits: {course.course.credits}</p>
+                                <p className="text-gray-600">Lecturer: {course.lecturer}</p>
+                            </li>
+                        ))
+                    ) : (
+                        <p className="text-center text-gray-500 italic">No foundation courses available.</p>
+                    )}
+                </Suspense>
             </ul>
 
             {/* Within Degree */}
             <h3 className="text-md font-medium text-gray-600 text-center m-2">Within Degree</h3>
             <ul className="mt-4 space-y-2">
-                {degreeCourses && degreeCourses.length > 0 ? (
-                    degreeCourses.map((course) => (
-                        <li key={course.id} className="p-4 bg-white rounded-lg shadow">
-                            <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
-                            <p className="text-gray-600">{course.course.course_code}</p>
-                            <p className="text-gray-600">Credits: {course.course.credits}</p>
-                            <p className="text-gray-600">Lecturer: {course.lecturer}</p>
-                        </li>
-                    ))
-                ) : (
-                    <p className="text-center text-gray-500 italic">No courses within your degree.</p>
-                )}
+                <Suspense fallback={<div>Loading degree courses...</div>}>
+                    {degreeCourses && degreeCourses.length > 0 ? (
+                        degreeCourses.map((course) => (
+                            <li key={course.id} className="p-4 bg-white rounded-lg shadow">
+                                <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
+                                <p className="text-gray-600">{course.course.course_code}</p>
+                                <p className="text-gray-600">Credits: {course.course.credits}</p>
+                                <p className="text-gray-600">Lecturer: {course.lecturer}</p>
+                            </li>
+                        ))
+                    ) : (
+                        <p className="text-center text-gray-500 italic">No courses within your degree.</p>
+                    )}
+                </Suspense>
             </ul>
 
             <h2 className="text-lg font-semibold text-gray-700 text-center mt-4"> Outside Degree</h2>
@@ -180,35 +185,39 @@ export default function SemesterCourses() {
             {/* Within Faculty */}
             <h3 className="text-md font-medium text-gray-600 text-center m-2">Within Faculty</h3>
             <ul className="mt-4 space-y-2">
-                {facultyCourses && facultyCourses.length > 0 ? (
-                    facultyCourses.map((course) => (
-                        <li key={course.id} className="p-4 bg-white rounded-lg shadow">
-                            <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
-                            <p className="text-gray-600">{course.course.course_code}</p>
-                            <p className="text-gray-600">Credits: {course.course.credits}</p>
-                            <p className="text-gray-600">Lecturer: {course.lecturer}</p>
-                        </li>
-                    ))
-                ) : (
-                    <p className="text-center text-gray-500 italic">No courses within your faculty.</p>
-                )}
+                <Suspense fallback={<div>Loading faculty courses...</div>}>
+                    {facultyCourses && facultyCourses.length > 0 ? (
+                        facultyCourses.map((course) => (
+                            <li key={course.id} className="p-4 bg-white rounded-lg shadow">
+                                <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
+                                <p className="text-gray-600">{course.course.course_code}</p>
+                                <p className="text-gray-600">Credits: {course.course.credits}</p>
+                                <p className="text-gray-600">Lecturer: {course.lecturer}</p>
+                            </li>
+                        ))
+                    ) : (
+                        <p className="text-center text-gray-500 italic">No courses within your faculty.</p>
+                    )}
+                </Suspense>
             </ul>
 
             {/* Out of Faculty */}
             <h3 className="text-md font-medium text-gray-600 text-center m-2">Out of Faculty</h3>
             <ul className="mt-4 space-y-2">
-                {otherCourses && otherCourses.length > 0 ? (
-                    otherCourses.map((course) => (
-                        <li key={course.id} className="p-4 bg-white rounded-lg shadow">
-                            <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
-                            <p className="text-gray-600">{course.course.course_code}</p>
-                            <p className="text-gray-600">Credits: {course.course.credits}</p>
-                            <p className="text-gray-600">Lecturer: {course.lecturer}</p>
-                        </li>
-                    ))
-                ) : (
-                    <p className="text-center text-gray-500 italic">No courses outside of your faculty.</p>
-                )}
+                <Suspense fallback={<div>Loading other courses...</div>}>
+                    {otherCourses && otherCourses.length > 0 ? (
+                        otherCourses.map((course) => (
+                            <li key={course.id} className="p-4 bg-white rounded-lg shadow">
+                                <h2 className="text-lg font-semibold">{course.course.course_name}</h2>
+                                <p className="text-gray-600">{course.course.course_code}</p>
+                                <p className="text-gray-600">Credits: {course.course.credits}</p>
+                                <p className="text-gray-600">Lecturer: {course.lecturer}</p>
+                            </li>
+                        ))
+                    ) : (
+                        <p className="text-center text-gray-500 italic">No courses outside of your faculty.</p>
+                    )}
+                </Suspense>
             </ul>
 
             <div className='flex justify-center w-full'>
