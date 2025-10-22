@@ -17,11 +17,16 @@ export async function getCoursesBySemester(selectedSemester: number) {
 }
 
 export async function getAllDegrees() {
-    const res = await fetch(`${API_BASE}/api/degrees`, {
-        cache: "no-store", // don't cache in dev
+    const res = await fetch("/api/degrees", { // Hits our own API route to check for local cache
+        next: { revalidate: 3600 }, // optional client hint
     });
-    if (!res.ok) throw new Error("Failed to fetch degrees");
-    return res.json();
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch degrees");
+    }
+
+    const data = await res.json();
+    return { data };
 }
 
 export async function getDegreeById(degreeId: number) {

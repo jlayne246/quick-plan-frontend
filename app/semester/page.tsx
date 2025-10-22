@@ -36,8 +36,9 @@ export default function Semester() {
         const fetchDegrees = async () => {
             try {
                 const res = await getAllDegrees();
-                setUserDegree(res.data[0].id || null); // Set the first degree as default
-                setDegrees(res.data);
+                console.log("Fetched degrees:", res.data.data);
+                setUserDegree(res.data.data[0].id || null); // Set the first degree as default
+                setDegrees(res.data.data);
             } catch (error) {
                 console.error("Failed to fetch degrees:", error);
             }
